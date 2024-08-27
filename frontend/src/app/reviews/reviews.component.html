@@ -1,0 +1,43 @@
+<div class="container">
+    <div class="header">
+        <h3 class="title">{{title | titlecase}}</h3>
+        <div>
+            <button (click)="onAdd()">Add New</button>
+        </div>
+    </div>
+    <div>
+        <table class="table" aria-describedby="table">
+            <thead>
+                <th>#</th>
+                <th>Title</th>
+                <th>Description</th>
+                <th>Date</th>
+                <th>Edit</th>
+                <th>Delete</th>
+            </thead>
+            <tbody>
+                <ng-container *ngIf="reviewsList.length; else noDataFoundRow">
+                    <tr *ngFor="let review of reviewsList; let i = index">
+                        <td>{{i+1}}</td>
+                        <td>{{review.title}}</td>
+                        <td>{{review.content}}</td>
+                        <td>{{review.createdAt | date}}</td>
+                        <td>
+                            <a (click)="onEdit(review.id)">Edit</a>
+                        </td>
+                        <td>
+                            <a (click)="onDelete()">Delete</a>
+                        </td>
+                    </tr>
+                </ng-container>
+                <ng-template #noDataFoundRow>
+                    <tr>
+                        <td colspan="6">
+                            No Reviews Available.
+                        </td>
+                    </tr>
+                </ng-template>
+            </tbody>
+        </table>
+    </div>
+</div>
