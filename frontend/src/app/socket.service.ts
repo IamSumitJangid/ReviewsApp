@@ -9,17 +9,17 @@ import { Observable } from 'rxjs';
 export class SocketService {
   private socket = (<any>io).connect(environment.SOCKET, { transport: ['websocket'] });
 
-  public onReviewListner(): Observable<any> {
+  public onReviewListener(): Observable<any> {
     const observable = new Observable(observer => {
-      this.socket.on('reviews', (res: any) => {
+      this.socket.on('updated-reviews', (res: any) => {
         observer.next(res);
       });
     })
     return observable;
   }
 
-  public addReview(review: { title: string, content: string }): void {
-    this.socket.emit('add-reviews', review);
+  public updateReview(): void {
+    this.socket.emit('reviews', {message: "update"});
   }
 
 }
